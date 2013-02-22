@@ -1,10 +1,10 @@
-import cv,cv2
-import sys
+#!/usr/bin/env python
+import cv2, sys
 import numpy as np
 
 # (cols, rows) of interior corners (so an 8x8 grid would have (7, 7))
-boardSize = (7, 7)
-imageSrcName = 'images/phone_board2.jpg' 
+boardSize = (3, 3)
+imageSrcName = 'images/robot_board4.png' 
 
 def getOuterPoints(rcCorners):
    tl = rcCorners[0,0]
@@ -56,13 +56,12 @@ def dispImages(img):
     if not found:
         print "SHIT IS FUCKED UP"
         return;
-        
-    cv2.drawChessboardCorners(img, boardSize, corners, found)
     transformed = transformImage(img, corners, boardSize)
 
-    cv2.imshow('Plain', img)
+    cv2.drawChessboardCorners(img, boardSize, corners, found)
     cv2.imshow('Transformed', transformed)
 
+    cv2.imshow('Plain', img)
 
 img = cv2.imread(
     imageSrcName,
@@ -70,10 +69,10 @@ img = cv2.imread(
 )
 
 cv2.namedWindow('Plain')
-cv.MoveWindow('Plain', 0, 0)
+cv2.moveWindow('Plain', 0, 0)
 
 cv2.namedWindow('Transformed')
-cv.MoveWindow('Transformed', img.shape[1], 0)
+cv2.moveWindow('Transformed', img.shape[1], 0)
 
 dispImages(img)
 
